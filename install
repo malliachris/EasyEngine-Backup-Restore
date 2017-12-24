@@ -24,6 +24,8 @@ restoresdir=$installdir/restores
 tmpdir=/tmp/ee-br
 wwwdir=/var/www
 
+mkdir -p $installdir 
+
 echo
 
 if [[ $EUID -ne 0 ]]
@@ -50,9 +52,8 @@ echo
 echo "${b}Now installing dependencies...${x}"
 echo
 hostname="$(cat /etc/hostname)"
-apt-add-repository ppa:duplicity-team/ppa -y
 apt-get update
-apt-get -y install duplicity python-pip pwgen pv python-boto composer ufw pwgen
+apt-get -y install duplicity python-pip pwgen pv python-boto ufw pwgen 
 pip install --upgrade pip
 pip install boto
 debconf-set-selections <<< "postfix postfix/mailname string $hostname"
@@ -78,8 +79,8 @@ chown -R www-data:www-data /var/www/
 ufw allow 80
 ufw allow 443
 ufw allow 22222
-ee stack install --all || true
-( cd /var/www/22222/htdocs/db/pma && composer install && sudo chown www-data: * -R )
+ee stack install --web || true
+( cd /var/www/22222/htdocs/db/pma && composer install && chown www-data: * -R )
 echo
 echo "${b}Finished installing easyengine.${x}"
 echo
