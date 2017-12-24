@@ -15,7 +15,9 @@
 * Returns **detailed errors in case of failure** to help you get your data back during a restore
 
 
-### Install [or update / re-install] on Ubuntu 16
+### Install [or update / re-install] on Debian Jessie
+
+You need to have composer installed (I recommended this tutorial: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-debian-8)
 
 ```
 apt update
